@@ -1,0 +1,370 @@
+swagger: '2.0'
+info:
+  description: ''
+  version: 1.0.0
+  title: RDMO JSON API
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: 'localhost:8000'
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /accounts/users/:
+    get:
+      tags:
+        - accounts
+      summary: List users
+      parameters:
+        - name: username
+          in: query
+          description: Filter by username.
+          required: false
+          type: string
+        - name: email
+          in: query
+          description: Filter by email.
+          required: false
+          type: string
+        - name: project
+          in: query
+          description: Filter by project ID.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/user'
+        '403':
+          description: Forbidden
+  '/accounts/users/{id}':
+    get:
+      tags:
+        - accounts
+      summary: Retrieve user
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the user.
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/user'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+  /conditions/conditions/:
+    get:
+      tags:
+        - conditions
+      summary: List conditions
+      parameters:
+        - name: uri
+          in: query
+          description: Filter by URI.
+          required: false
+          type: string
+        - name: key
+          in: query
+          description: Filter by key.
+          required: false
+          type: string
+        - name: source
+          in: query
+          description: Filter by source attribute ID.
+          required: false
+          type: integer
+        - name: relation
+          in: query
+          description: Filter by relation.
+          required: false
+          type: integer
+        - name: target_text
+          in: query
+          description: Filter by target text.
+          required: false
+          type: string
+        - name: target_option
+          in: query
+          description: Filter by target option ID.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/condition'
+        '403':
+          description: Forbidden
+  '/conditions/conditions/{id}':
+    get:
+      tags:
+        - conditions
+      summary: Retrieve conditions
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the condition.
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/condition'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+  /domain/entities/:
+    get:
+      tags:
+        - domain
+      summary: List entities
+      parameters:
+        - name: uri
+          in: query
+          description: Filter by URI.
+          required: false
+          type: string
+        - name: path
+          in: query
+          description: Filter by path.
+          required: false
+          type: string
+        - name: key
+          in: query
+          description: Filter by key.
+          required: false
+          type: string
+        - name: parent
+          in: query
+          description: Filter by parent entity ID.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/entity'
+        '403':
+          description: Forbidden
+  '/domain/entities/{id}':
+    get:
+      tags:
+        - domain
+      summary: Retrieve entity
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the entity
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/entity'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+  /domain/attributes/:
+    get:
+      tags:
+        - domain
+      summary: List attributes
+      parameters:
+        - name: uri
+          in: query
+          description: Filter by URI.
+          required: false
+          type: string
+        - name: path
+          in: query
+          description: Filter by path.
+          required: false
+          type: string
+        - name: key
+          in: query
+          description: Filter by key.
+          required: false
+          type: string
+        - name: parent
+          in: query
+          description: Filter by parent entity ID.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/attribute'
+        '403':
+          description: Forbidden
+  '/domain/attribute/{id}':
+    get:
+      tags:
+        - domain
+      summary: Retrieve attribute
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the attribute
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/attribute'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+definitions:
+  user:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: The ID of the user.
+      username:
+        type: string
+        description: The username of the user.
+      first_name:
+        type: string
+        description: The first name of the user.
+      last_name:
+        type: string
+        description: The last name of the user.
+      email:
+        type: string
+        description: The email of the user.
+  condition:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: The ID ot this condition.
+      uri:
+        type: string
+        description: The Uniform Resource Identifier of this condition.
+      uri_prefix:
+        type: string
+        description: The prefix for the URI of this condition.
+      key:
+        type: string
+        description: The internal identifier of this condition.
+      comment:
+        type: string
+        description: Additional internal information about this condition.
+      source:
+        type: string
+        description: The Attribute this condition is evaluating.
+      relation:
+        type: string
+        description: The Relation this condition is using.
+      target_text:
+        type: string
+        description: >-
+          If using a regular attibute, the text value this condition is checking
+          against.
+      target_option:
+        type: string
+        description: >-
+          If using an options attribute, the option this condition is checking
+          against.
+  entity:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: The ID ot this entity.
+      uri:
+        type: string
+        description: The Uniform Resource Identifier of this entity.
+      uri_prefix:
+        type: string
+        description: The prefix for the URI of this entity.
+      path:
+        type: string
+        description: The path part of the URI of this entity.
+      key:
+        type: string
+        description: The internal identifier of this entity.
+      comment:
+        type: string
+        description: Additional internal information about this entity.
+      is_collection:
+        type: boolean
+        description: Designates whether this entity is a collection.
+      verbose_name:
+        type: object
+      conditions:
+        type: array
+        description: List of conditions evaluated for this entity.
+        items:
+          type: string
+      parent:
+        type: string
+        description: Parent entity in the domain model.
+      children:
+        type: array
+        description: List of child entities/attributes in the domain model.
+        items:
+          type: string
+  attribute:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: The ID ot this entity.
+      uri:
+        description: The Uniform Resource Identifier of this entity.
+        type: string
+        format: uri
+      uri_prefix:
+        type: string
+        description: The prefix for the URI of this entity.
+      path:
+        type: string
+        description: The path part of the URI of this entity.
+      key:
+        type: string
+        description: The internal identifier of this entity.
+      comment:
+        type: string
+        description: Additional internal information about this entity.
+      is_collection:
+        type: boolean
+        description: Designates whether this entity is a collection.
+      verbose_name:
+        type: object
+      conditions:
+        type: array
+        description: List of conditions evaluated for this entity.
+        items:
+          type: string
+      parent:
+        type: string
+        description: Parent entity in the domain model.
+      children:
+        type: array
+        description: List of child entities/attributes in the domain model.
+        items:
+          type: string
