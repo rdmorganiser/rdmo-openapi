@@ -486,7 +486,7 @@ paths:
         '200':
           description: Success
           schema:
-            $ref: '#/definitions/subsections'
+            $ref: '#/definitions/subsection'
         '403':
           description: Forbidden
         '404':
@@ -929,7 +929,7 @@ definitions:
         type: string
       comment:
         description: Additional internal information about this subsection.
-        section: string
+        type: string
       catalog:
         description: The section this subsection belongs to.
         type: string
@@ -967,13 +967,13 @@ definitions:
         type: string
       comment:
         description: Additional internal information about this question set.
-        section: string
+        type: string
       subsection:
         description: The question set this question set belongs to.
         type: string
         format: url
       attribute_entity:
-        description:  The entity this question set belongs to.
+        description: The entity this question set belongs to.
       order:
         description: The position of this question set in lists.
         type: integer
@@ -1007,13 +1007,13 @@ definitions:
         type: string
       comment:
         description: Additional internal information about this question.
-        section: string
+        type: string
       subsection:
         description: The subsection this question set belongs to.
         type: string
         format: url
       attribute_entity:
-        description:  The attribute this question belongs to.
+        description: The attribute this question belongs to.
         type: string
         format: url
       order:
@@ -1034,4 +1034,3 @@ definitions:
       widget_type:
         description: Type of widget for this question.
         type: string
-
