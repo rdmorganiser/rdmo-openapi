@@ -169,7 +169,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: The ID of the entity
+          description: The ID of the entity.
           required: true
           type: integer
       responses:
@@ -224,7 +224,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: The ID of the attribute
+          description: The ID of the attribute.
           required: true
           type: integer
       responses:
@@ -269,7 +269,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: The ID of the option set
+          description: The ID of the option set.
           required: true
           type: integer
       responses:
@@ -324,7 +324,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: The ID of the options
+          description: The ID of the options.
           required: true
           type: integer
       responses:
@@ -332,6 +332,276 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/option'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+  /questions/catalogs/:
+    get:
+      tags:
+        - questions
+      summary: List catalogs
+      parameters:
+        - name: uri
+          in: query
+          description: Filter by URI.
+          required: false
+          type: string
+        - name: key
+          in: query
+          description: Filter by key.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/catalog'
+        '403':
+          description: Forbidden
+  '/questions/catalogs/{id}':
+    get:
+      tags:
+        - questions
+      summary: Retrieve catalog
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the catalog.
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/catalog'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+  /questions/sections/:
+    get:
+      tags:
+        - questions
+      summary: List sections
+      parameters:
+        - name: uri
+          in: query
+          description: Filter by URI.
+          required: false
+          type: string
+        - name: path
+          in: query
+          description: Filter by path.
+          required: false
+          type: string
+        - name: key
+          in: query
+          description: Filter by key.
+          required: false
+          type: string
+        - name: catalog
+          in: query
+          description: Filter by parent catalog ID.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/section'
+        '403':
+          description: Forbidden
+  '/questions/sections/{id}':
+    get:
+      tags:
+        - questions
+      summary: Retrieve section
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the section.
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/section'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+  /questions/subsections/:
+    get:
+      tags:
+        - questions
+      summary: List subsection
+      parameters:
+        - name: uri
+          in: query
+          description: Filter by URI.
+          required: false
+          type: string
+        - name: path
+          in: query
+          description: Filter by path.
+          required: false
+          type: string
+        - name: key
+          in: query
+          description: Filter by key.
+          required: false
+          type: string
+        - name: section
+          in: query
+          description: Filter by parent section ID.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/subsection'
+        '403':
+          description: Forbidden
+  '/questions/subsections/{id}':
+    get:
+      tags:
+        - questions
+      summary: Retrieve subsection
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the subsection.
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/subsections'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+  /questions/questionset/:
+    get:
+      tags:
+        - questions
+      summary: List questionsets
+      parameters:
+        - name: uri
+          in: query
+          description: Filter by URI.
+          required: false
+          type: string
+        - name: path
+          in: query
+          description: Filter by path.
+          required: false
+          type: string
+        - name: key
+          in: query
+          description: Filter by key.
+          required: false
+          type: string
+        - name: subsection
+          in: query
+          description: Filter by parent subsection ID.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/questionset'
+        '403':
+          description: Forbidden
+  '/questions/questionsets/{id}':
+    get:
+      tags:
+        - questions
+      summary: Retrieve questionset
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the questionset.
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/questionset'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+  /questions/questions/:
+    get:
+      tags:
+        - questions
+      summary: List questions
+      parameters:
+        - name: uri
+          in: query
+          description: Filter by URI.
+          required: false
+          type: string
+        - name: path
+          in: query
+          description: Filter by path.
+          required: false
+          type: string
+        - name: key
+          in: query
+          description: Filter by key.
+          required: false
+          type: string
+        - name: subsection
+          in: query
+          description: Filter by parent section ID.
+          required: false
+          type: integer
+        - name: parent
+          in: query
+          description: Filter by parent question set ID.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/question'
+        '403':
+          description: Forbidden
+  '/questions/questions/{id}':
+    get:
+      tags:
+        - questions
+      summary: Retrieve question
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the question.
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/question'
         '403':
           description: Forbidden
         '404':
@@ -569,3 +839,199 @@ definitions:
         description: The option set this option belongs to.
         type: string
         format: url
+  catalog:
+    type: object
+    properties:
+      id:
+        description: The ID ot this catalog.
+        type: integer
+      uri:
+        description: The Uniform Resource Identifier of this catalog.
+        type: string
+        format: uri
+      uri_prefix:
+        description: The prefix for the URI of this catalog.
+        type: string
+      key:
+        description: The internal identifier of this catalog.
+        type: string
+      comment:
+        description: Additional internal information about this catalog.
+        type: string
+      order:
+        description: The position of this catalog in lists.
+        type: integer
+      title_en:
+        description: The English title displayed for this catalog.
+        type: string
+      title_de:
+        description: The German title displayed for this catalog.
+        type: string
+      sections:
+        type: array
+        description: List of sections in this catalog.
+        items:
+          type: string
+          format: url
+  section:
+    type: object
+    properties:
+      id:
+        description: The ID ot this section.
+        type: integer
+      uri:
+        description: The Uniform Resource Identifier of this section.
+        type: string
+        format: uri
+      uri_prefix:
+        description: The prefix for the URI of this section.
+        type: string
+      key:
+        description: The internal identifier of this section.
+        type: string
+      comment:
+        description: Additional internal information about this section.
+        type: string
+      catalog:
+        description: The catalog this section belongs to.
+        type: string
+        format: url
+      order:
+        description: The position of this section in lists.
+        type: integer
+      title_en:
+        description: The English title displayed for this section.
+        type: string
+      title_de:
+        description: The German title displayed for this section.
+        type: string
+      sections:
+        type: array
+        description: List of subsections in this section.
+        items:
+          type: string
+          format: url
+  subsection:
+    type: object
+    properties:
+      id:
+        description: The ID ot this subsection.
+        type: integer
+      uri:
+        description: The Uniform Resource Identifier of this subsection.
+        type: string
+        format: uri
+      uri_prefix:
+        description: The prefix for the URI of this subsection.
+        type: string
+      key:
+        description: The internal identifier of this subsection.
+        type: string
+      comment:
+        description: Additional internal information about this subsection.
+        section: string
+      catalog:
+        description: The section this subsection belongs to.
+        type: string
+        format: url
+      order:
+        description: The position of this subsection in lists.
+        type: integer
+      title_en:
+        description: The English title displayed for this subsection.
+        type: string
+      title_de:
+        description: The German title displayed for this subsection.
+        type: string
+      question_entities:
+        type: array
+        description: List of question entities in this subsection.
+        items:
+          type: string
+          format: url
+  questionset:
+    type: object
+    properties:
+      id:
+        description: The ID ot this question set.
+        type: integer
+      uri:
+        description: The Uniform Resource Identifier of this question set.
+        type: string
+        format: uri
+      uri_prefix:
+        description: The prefix for the URI of this question set.
+        type: string
+      key:
+        description: The internal identifier of this question set.
+        type: string
+      comment:
+        description: Additional internal information about this question set.
+        section: string
+      subsection:
+        description: The question set this question set belongs to.
+        type: string
+        format: url
+      attribute_entity:
+        description:  The entity this question set belongs to.
+      order:
+        description: The position of this question set in lists.
+        type: integer
+      help_en:
+        description: The English title displayed for this question set.
+        type: string
+      help_de:
+        description: The German title displayed for this question set.
+        type: string
+      questions:
+        type: array
+        description: List of questions in this question set.
+        items:
+          type: string
+          format: url
+  question:
+    type: object
+    properties:
+      id:
+        description: The ID ot this question.
+        type: integer
+      uri:
+        description: The Uniform Resource Identifier of this question.
+        type: string
+        format: uri
+      uri_prefix:
+        description: The prefix for the URI of this question.
+        type: string
+      key:
+        description: The internal identifier of this question.
+        type: string
+      comment:
+        description: Additional internal information about this question.
+        section: string
+      subsection:
+        description: The subsection this question set belongs to.
+        type: string
+        format: url
+      attribute_entity:
+        description:  The attribute this question belongs to.
+        type: string
+        format: url
+      order:
+        description: The position of this question in lists.
+        type: integer
+      help_en:
+        description: The English help text displayed for this question.
+        type: string
+      help_de:
+        description: The German help text displayed for this question.
+        type: string
+      text_en:
+        description: The English text displayed for this question.
+        type: string
+      text_de:
+        description: The German text displayed for this question.
+        type: string
+      widget_type:
+        description: Type of widget for this question.
+        type: string
+
