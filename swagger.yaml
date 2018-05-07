@@ -236,135 +236,336 @@ paths:
           description: Forbidden
         '404':
           description: Not found
+  /options/optionset/:
+    get:
+      tags:
+        - options
+      summary: List option sets
+      parameters:
+        - name: uri
+          in: query
+          description: Filter by URI.
+          required: false
+          type: string
+        - name: key
+          in: query
+          description: Filter by key.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/optionset'
+        '403':
+          description: Forbidden
+  '/options/optionset/{id}':
+    get:
+      tags:
+        - options
+      summary: Retrieve option set
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the option set
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/optionset'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+  /options/options/:
+    get:
+      tags:
+        - options
+      summary: List options
+      parameters:
+        - name: uri
+          in: query
+          description: Filter by URI.
+          required: false
+          type: string
+        - name: path
+          in: query
+          description: Filter by path.
+          required: false
+          type: string
+        - name: key
+          in: query
+          description: Filter by key.
+          required: false
+          type: string
+        - name: optionset
+          in: query
+          description: Filter by parent optionset ID.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/option'
+        '403':
+          description: Forbidden
+  '/options/options/{id}':
+    get:
+      tags:
+        - options
+      summary: Retrieve option
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the options
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/option'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
 definitions:
   user:
     type: object
     properties:
       id:
-        type: integer
         description: The ID of the user.
+        type: integer
       username:
-        type: string
         description: The username of the user.
+        type: string
       first_name:
-        type: string
         description: The first name of the user.
+        type: string
       last_name:
-        type: string
         description: The last name of the user.
-      email:
         type: string
+      email:
         description: The email of the user.
+        type: string
   condition:
     type: object
     properties:
       id:
+        description: The ID of this condition.
         type: integer
-        description: The ID ot this condition.
       uri:
-        type: string
         description: The Uniform Resource Identifier of this condition.
+        type: string
+        format: uri
       uri_prefix:
-        type: string
         description: The prefix for the URI of this condition.
+        type: string
       key:
-        type: string
         description: The internal identifier of this condition.
+        type: string
       comment:
-        type: string
         description: Additional internal information about this condition.
+        type: string
       source:
-        type: string
         description: The Attribute this condition is evaluating.
+        type: string
+        format: url
       relation:
-        type: string
         description: The Relation this condition is using.
-      target_text:
         type: string
+      target_text:
         description: >-
           If using a regular attibute, the text value this condition is checking
           against.
-      target_option:
         type: string
+      target_option:
         description: >-
           If using an options attribute, the option this condition is checking
           against.
+        type: string
+        format: url
   entity:
     type: object
     properties:
       id:
+        description: The ID of this entity.
         type: integer
-        description: The ID ot this entity.
-      uri:
-        type: string
-        description: The Uniform Resource Identifier of this entity.
-      uri_prefix:
-        type: string
-        description: The prefix for the URI of this entity.
-      path:
-        type: string
-        description: The path part of the URI of this entity.
-      key:
-        type: string
-        description: The internal identifier of this entity.
-      comment:
-        type: string
-        description: Additional internal information about this entity.
-      is_collection:
-        type: boolean
-        description: Designates whether this entity is a collection.
-      verbose_name:
-        type: object
-      conditions:
-        type: array
-        description: List of conditions evaluated for this entity.
-        items:
-          type: string
-      parent:
-        type: string
-        description: Parent entity in the domain model.
-      children:
-        type: array
-        description: List of child entities/attributes in the domain model.
-        items:
-          type: string
-  attribute:
-    type: object
-    properties:
-      id:
-        type: integer
-        description: The ID ot this entity.
       uri:
         description: The Uniform Resource Identifier of this entity.
         type: string
         format: uri
       uri_prefix:
-        type: string
         description: The prefix for the URI of this entity.
+        type: string
       path:
-        type: string
         description: The path part of the URI of this entity.
+        type: string
       key:
-        type: string
         description: The internal identifier of this entity.
-      comment:
         type: string
+      comment:
         description: Additional internal information about this entity.
+        type: string
       is_collection:
-        type: boolean
         description: Designates whether this entity is a collection.
-      verbose_name:
-        type: object
+        type: boolean
+      conditions:
+        description: List of conditions evaluated for this entity.
+        type: array
+        items:
+          type: string
+          format: url
+      parent:
+        description: Parent entity in the domain model.
+        type: string
+        format: url
+      children:
+        description: List of child entities/attributes in the domain model.
+        type: array
+        items:
+          type: string
+          format: url
+  attribute:
+    type: object
+    properties:
+      id:
+        description: The ID of this attribute.
+        type: integer
+      uri:
+        description: The Uniform Resource Identifier of this attribute.
+        type: string
+        format: uri
+      uri_prefix:
+        description: The prefix for the URI of this attribute.
+        type: string
+      path:
+        description: The path part of the URI of this attribute.
+        type: string
+      key:
+        description: The internal identifier of this attribute.
+        type: string
+      comment:
+        description: Additional internal information about this attribute.
+        type: string
+      value_type:
+        description: Type of value for this attribute.
+        type: string
+      unit:
+        description: Unit for this attribute.
+        type: string
+      is_collection:
+        description: Designates whether this attribute is a collection.
+        type: boolean
+      range:
+        $ref: '#/definitions/range'
+      optionsets:
+        description: List of optionsets used for this attribute.
+        type: array
+        items:
+          type: string
+          format: url
+      conditions:
+        description: List of conditions evaluated for this attribute.
+        type: array
+        items:
+          type: string
+          format: url
+      parent:
+        description: Parent entity in the domain model.
+        type: string
+        format: url
+  range:
+    type: object
+    properties:
+      id:
+        description: The ID of this attribute.
+        type: integer
+      minimum:
+        description: Minimal value for this attribute.
+        type: number
+        format: float
+      maximum:
+        description: Maximum value for this attribute.
+        type: number
+        format: float
+      step:
+        description: Step in which this attribute can be incremented/decremented.
+        type: number
+        format: float
+  optionset:
+    type: object
+    properties:
+      id:
+        description: The ID ot this option set.
+        type: integer
+      uri:
+        description: The Uniform Resource Identifier of this option set.
+        type: string
+        format: uri
+      uri_prefix:
+        description: The prefix for the URI of this option set.
+        type: string
+      key:
+        description: The internal identifier of this option set.
+        type: string
+      comment:
+        description: Additional internal information about this option set.
+        type: string
+      order:
+        description: The position of this option set in lists.
+        type: integer
       conditions:
         type: array
-        description: List of conditions evaluated for this entity.
+        description: List of conditions evaluated for this option set.
         items:
           type: string
-      parent:
-        type: string
-        description: Parent entity in the domain model.
-      children:
+          format: url
+      options:
         type: array
-        description: List of child entities/attributes in the domain model.
+        description: List of options in this optionset.
         items:
           type: string
+          format: url
+  option:
+    type: object
+    properties:
+      id:
+        description: The ID ot this option.
+        type: integer
+      uri:
+        description: The Uniform Resource Identifier of this option.
+        type: string
+        format: uri
+      uri_prefix:
+        description: The prefix for the URI of this option.
+        type: string
+      key:
+        description: The internal identifier of this option.
+        type: string
+      comment:
+        description: Additional internal information about this option.
+        type: string
+      order:
+        description: The position of this option in lists.
+        type: integer
+      text_en:
+        description: The English text displayed for this option.
+        type: string
+      text_de:
+        description: The German text displayed for this option.
+        type: string
+      additional_input:
+        description: Designates whether an additional input is possible for this option.
+        type: boolean
+      optionset:
+        description: The option set this option belongs to.
+        type: string
+        format: url
