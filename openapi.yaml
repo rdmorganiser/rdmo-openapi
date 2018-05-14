@@ -1,6 +1,7 @@
 openapi: 3.0.1
 servers:
   - url: 'http://localhost:8000/api/v1'
+  - url: 'http://localhost:8280/api/v1'
 info:
   description: ''
   version: 1.0.0
@@ -383,6 +384,31 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/option'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+  '/projects/projects/':
+    get:
+      tags:
+        - projects
+      summary: List projects
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the options.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                  type: array
+                  items:
+                      $ref: '#/components/schemas/project'
         '403':
           description: Forbidden
         '404':
@@ -935,6 +961,56 @@ components:
           description: The option set this option belongs to.
           type: string
           format: url
+    project:
+      type: object
+      properties:
+        id:
+          description: The project ID.
+          type: integer
+        title:
+          description: The project's title
+          type: string
+        description:
+          description: The project's description
+          type: string
+        catalog:
+          description: URL to the question catalog of the project
+          type: string
+        snapshots:
+          description: Snapshot of a project
+          type: array
+          items:
+            type: string
+            format: url
+        members:
+          $ref: '#/components/schemas/members'
+    members:
+      type: object
+      properties:
+        author:
+            description: Authors of a project
+            type: array
+            items:
+              type: string
+              format: url
+        manager:
+            description: Managers of a project
+            type: array
+            items:
+              type: string
+              format: url
+        guest:
+            description: Guest users of a project
+            type: array
+            items:
+              type: string
+              format: url
+        owner:
+            description: Owners of a project
+            type: array
+            items:
+              type: string
+              format: url
     catalog:
       type: object
       properties:
