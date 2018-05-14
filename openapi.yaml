@@ -388,7 +388,7 @@ paths:
           description: Forbidden
         '404':
           description: Not found
-  '/projects/projects/':
+  /projects/projects/:
     get:
       tags:
         - projects
@@ -413,6 +413,30 @@ paths:
           description: Forbidden
         '404':
           description: Not found
+  '/projects/projects/{id}':
+    get:
+      tags:
+        - projects
+      summary: Retrieve project data
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the project.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/project'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+
   /questions/catalogs/:
     get:
       tags:
