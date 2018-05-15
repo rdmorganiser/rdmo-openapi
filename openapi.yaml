@@ -1,1232 +1,1666 @@
 openapi: 3.0.1
 servers:
-  - url: 'http://localhost:8000/api/v1'
-  - url: 'http://localhost:8280/api/v1'
+  - url: 'http://localhost:8080/'
 info:
+  title: Pastebin API
   description: ''
-  version: 1.0.0
-  title: RDMO JSON API
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: ''
 paths:
-  /accounts/users/:
+  /api/v1/accounts/users/:
     get:
-      tags:
-        - accounts
-      summary: List users
       parameters:
-        - name: username
+        - required: false
           in: query
-          description: Filter by username.
-          required: false
+          description: ''
+          name: username
           schema:
             type: string
-        - name: email
+        - required: false
           in: query
-          description: Filter by email.
-          required: false
+          description: ''
+          name: email
           schema:
             type: string
-        - name: project
+        - required: false
           in: query
-          description: Filter by project ID.
-          required: false
+          description: ''
+          name: project
           schema:
-            type: integer
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/user'
-        '403':
-          description: Forbidden
-  '/accounts/users/{id}':
-    get:
+          description: OK
+      operationId: v1_accounts_users_list
       tags:
-        - accounts
-      summary: Retrieve user
+        - v1
+  '/api/v1/accounts/users/{id}/':
+    get:
       parameters:
-        - name: id
+        - required: true
           in: path
-          description: The ID of the user.
-          required: true
+          description: A unique integer value identifying this user.
+          name: id
           schema:
             type: integer
+        - required: false
+          in: query
+          description: ''
+          name: username
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: email
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: project
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/user'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-  /conditions/conditions/:
-    get:
+          description: OK
+      operationId: v1_accounts_users_read
       tags:
-        - conditions
-      summary: List conditions
+        - v1
+  /api/v1/conditions/conditions/:
+    get:
       parameters:
-        - name: uri
+        - required: false
           in: query
-          description: Filter by URI.
-          required: false
+          description: ''
+          name: uri
           schema:
             type: string
-        - name: key
+        - required: false
           in: query
-          description: Filter by key.
-          required: false
+          description: ''
+          name: key
           schema:
             type: string
-        - name: source
+        - required: false
           in: query
-          description: Filter by source attribute ID.
-          required: false
-          schema:
-            type: integer
-        - name: relation
-          in: query
-          description: Filter by relation.
-          required: false
-          schema:
-            type: integer
-        - name: target_text
-          in: query
-          description: Filter by target text.
-          required: false
+          description: ''
+          name: source
           schema:
             type: string
-        - name: target_option
+        - required: false
           in: query
-          description: Filter by target option ID.
-          required: false
+          description: ''
+          name: relation
           schema:
-            type: integer
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: target_text
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: target_option
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/condition'
-        '403':
-          description: Forbidden
-  '/conditions/conditions/{id}':
-    get:
+          description: OK
+      operationId: v1_conditions_conditions_list
       tags:
-        - conditions
-      summary: Retrieve conditions
+        - v1
+  '/api/v1/conditions/conditions/{id}/':
+    get:
       parameters:
-        - name: id
+        - required: true
           in: path
-          description: The ID of the condition.
-          required: true
+          description: A unique integer value identifying this Condition.
+          name: id
           schema:
             type: integer
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: source
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: relation
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: target_text
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: target_option
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/condition'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-  /domain/entities/:
-    get:
+          description: OK
+      operationId: v1_conditions_conditions_read
       tags:
-        - domain
-      summary: List entities
+        - v1
+  /api/v1/domain/attributes/:
+    get:
       parameters:
-        - name: uri
+        - required: false
           in: query
-          description: Filter by URI.
-          required: false
+          description: ''
+          name: uri
           schema:
             type: string
-        - name: path
+        - required: false
           in: query
-          description: Filter by path.
-          required: false
+          description: ''
+          name: path
           schema:
             type: string
-        - name: key
+        - required: false
           in: query
-          description: Filter by key.
-          required: false
+          description: ''
+          name: key
           schema:
             type: string
-        - name: parent
+        - required: false
           in: query
-          description: Filter by parent entity ID.
-          required: false
+          description: ''
+          name: parent
           schema:
-            type: integer
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/entity'
-        '403':
-          description: Forbidden
-  '/domain/entities/{id}':
-    get:
+          description: OK
+      operationId: v1_domain_attributes_list
       tags:
-        - domain
-      summary: Retrieve entity
+        - v1
+  '/api/v1/domain/attributes/{id}/':
+    get:
       parameters:
-        - name: id
+        - required: true
           in: path
-          description: The ID of the entity.
-          required: true
+          description: A unique integer value identifying this Attribute.
+          name: id
           schema:
             type: integer
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: path
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: parent
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/entity'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-  /domain/attributes/:
-    get:
+          description: OK
+      operationId: v1_domain_attributes_read
       tags:
-        - domain
-      summary: List attributes
+        - v1
+  /api/v1/domain/entities/:
+    get:
       parameters:
-        - name: uri
+        - required: false
           in: query
-          description: Filter by URI.
-          required: false
+          description: ''
+          name: uri
           schema:
             type: string
-        - name: path
+        - required: false
           in: query
-          description: Filter by path.
-          required: false
+          description: ''
+          name: path
           schema:
             type: string
-        - name: key
+        - required: false
           in: query
-          description: Filter by key.
-          required: false
+          description: ''
+          name: key
           schema:
             type: string
-        - name: parent
+        - required: false
           in: query
-          description: Filter by parent entity ID.
-          required: false
+          description: ''
+          name: parent
           schema:
-            type: integer
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/attribute'
-        '403':
-          description: Forbidden
-  '/domain/attribute/{id}':
-    get:
+          description: OK
+      operationId: v1_domain_entities_list
       tags:
-        - domain
-      summary: Retrieve attribute
+        - v1
+  '/api/v1/domain/entities/{id}/':
+    get:
       parameters:
-        - name: id
+        - required: true
           in: path
-          description: The ID of the attribute.
-          required: true
+          description: A unique integer value identifying this Attribute entity.
+          name: id
           schema:
             type: integer
-      responses:
-        '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/attribute'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-  /options/optionset/:
-    get:
-      tags:
-        - options
-      summary: List option sets
-      parameters:
-        - name: uri
+        - required: false
           in: query
-          description: Filter by URI.
-          required: false
+          description: ''
+          name: uri
           schema:
             type: string
-        - name: key
+        - required: false
           in: query
-          description: Filter by key.
-          required: false
+          description: ''
+          name: path
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: parent
           schema:
             type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/optionset'
-        '403':
-          description: Forbidden
-  '/options/optionset/{id}':
-    get:
+          description: OK
+      operationId: v1_domain_entities_read
       tags:
-        - options
-      summary: Retrieve option set
+        - v1
+  /api/v1/options/options/:
+    get:
       parameters:
-        - name: id
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: path
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: optionset
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      operationId: v1_options_options_list
+      tags:
+        - v1
+  '/api/v1/options/options/{id}/':
+    get:
+      parameters:
+        - required: true
           in: path
-          description: The ID of the option set.
-          required: true
+          description: A unique integer value identifying this Option.
+          name: id
           schema:
             type: integer
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: path
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: optionset
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/optionset'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-  /options/options/:
-    get:
+          description: OK
+      operationId: v1_options_options_read
       tags:
-        - options
-      summary: List options
+        - v1
+  /api/v1/options/optionsets/:
+    get:
       parameters:
-        - name: uri
+        - required: false
           in: query
-          description: Filter by URI.
-          required: false
+          description: ''
+          name: uri
           schema:
             type: string
-        - name: path
+        - required: false
           in: query
-          description: Filter by path.
-          required: false
+          description: ''
+          name: key
           schema:
             type: string
-        - name: key
-          in: query
-          description: Filter by key.
-          required: false
-          schema:
-            type: string
-        - name: optionset
-          in: query
-          description: Filter by parent optionset ID.
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/option'
-        '403':
-          description: Forbidden
-  '/options/options/{id}':
-    get:
+          description: OK
+      operationId: v1_options_optionsets_list
       tags:
-        - options
-      summary: Retrieve option
+        - v1
+  '/api/v1/options/optionsets/{id}/':
+    get:
       parameters:
-        - name: id
+        - required: true
           in: path
-          description: The ID of the options.
-          required: true
+          description: A unique integer value identifying this Option set.
+          name: id
           schema:
             type: integer
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/option'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-  /projects/projects/:
-    get:
+          description: OK
+      operationId: v1_options_optionsets_read
       tags:
-        - projects
-      summary: List projects
+        - v1
+  /api/v1/projects/projects/:
+    get:
       parameters:
-        - name: id
+        - required: false
+          in: query
+          description: ''
+          name: title
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: user
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: user__username
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: catalog
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: catalog__uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: catalog__key
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      operationId: v1_projects_projects_list
+      tags:
+        - v1
+  '/api/v1/projects/projects/{id}/':
+    get:
+      parameters:
+        - required: true
           in: path
-          description: The ID of the options.
-          required: false
+          description: A unique integer value identifying this Project.
+          name: id
           schema:
             type: integer
+        - required: false
+          in: query
+          description: ''
+          name: title
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: user
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: user__username
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: catalog
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: catalog__uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: catalog__key
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                  type: array
-                  items:
-                      $ref: '#/components/schemas/project'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-  '/projects/projects/{id}':
-    get:
+          description: OK
+      operationId: v1_projects_projects_read
       tags:
-        - projects
-      summary: Retrieve project data
+        - v1
+  /api/v1/projects/snapshots/:
+    get:
       parameters:
-        - name: id
+        - required: false
+          in: query
+          description: ''
+          name: title
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: project
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      operationId: v1_projects_snapshots_list
+      tags:
+        - v1
+  '/api/v1/projects/snapshots/{id}/':
+    get:
+      parameters:
+        - required: true
           in: path
-          description: The ID of the project.
-          required: true
+          description: A unique integer value identifying this Snapshot.
+          name: id
           schema:
             type: integer
-      responses:
-        '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/project'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-
-  /questions/catalogs/:
-    get:
-      tags:
-        - questions
-      summary: List catalogs
-      parameters:
-        - name: uri
+        - required: false
           in: query
-          description: Filter by URI.
-          required: false
+          description: ''
+          name: title
           schema:
             type: string
-        - name: key
+        - required: false
           in: query
-          description: Filter by key.
-          required: false
+          description: ''
+          name: project
           schema:
             type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/catalog'
-        '403':
-          description: Forbidden
-  '/questions/catalogs/{id}':
-    get:
+          description: OK
+      operationId: v1_projects_snapshots_read
       tags:
-        - questions
-      summary: Retrieve catalog
+        - v1
+  /api/v1/projects/values/:
+    get:
       parameters:
-        - name: id
+        - required: false
+          in: query
+          description: ''
+          name: project
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: snapshot
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: attribute
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: attribute__uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: attribute__path
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: option__uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: option__path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      operationId: v1_projects_values_list
+      tags:
+        - v1
+  '/api/v1/projects/values/{id}/':
+    get:
+      parameters:
+        - required: true
           in: path
-          description: The ID of the catalog.
-          required: true
+          description: A unique integer value identifying this Value.
+          name: id
           schema:
             type: integer
+        - required: false
+          in: query
+          description: ''
+          name: project
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: snapshot
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: attribute
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: attribute__uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: attribute__path
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: option__uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: option__path
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/catalog'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-  /questions/sections/:
-    get:
+          description: OK
+      operationId: v1_projects_values_read
       tags:
-        - questions
-      summary: List sections
+        - v1
+  /api/v1/questions/catalogs/:
+    get:
       parameters:
-        - name: uri
+        - required: false
           in: query
-          description: Filter by URI.
-          required: false
+          description: ''
+          name: uri
           schema:
             type: string
-        - name: path
+        - required: false
           in: query
-          description: Filter by path.
-          required: false
+          description: ''
+          name: key
           schema:
             type: string
-        - name: key
-          in: query
-          description: Filter by key.
-          required: false
-          schema:
-            type: string
-        - name: catalog
-          in: query
-          description: Filter by parent catalog ID.
-          required: false
-          schema:
-            type: integer
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/section'
-        '403':
-          description: Forbidden
-  '/questions/sections/{id}':
-    get:
+          description: OK
+      operationId: v1_questions_catalogs_list
       tags:
-        - questions
-      summary: Retrieve section
+        - v1
+  '/api/v1/questions/catalogs/{id}/':
+    get:
       parameters:
-        - name: id
+        - required: true
           in: path
-          description: The ID of the section.
-          required: true
+          description: A unique integer value identifying this Catalog.
+          name: id
           schema:
             type: integer
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/section'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-  /questions/subsections/:
-    get:
+          description: OK
+      operationId: v1_questions_catalogs_read
       tags:
-        - questions
-      summary: List subsection
+        - v1
+  /api/v1/questions/questions/:
+    get:
       parameters:
-        - name: uri
+        - required: false
           in: query
-          description: Filter by URI.
-          required: false
+          description: ''
+          name: uri
           schema:
             type: string
-        - name: path
+        - required: false
           in: query
-          description: Filter by path.
-          required: false
+          description: ''
+          name: path
           schema:
             type: string
-        - name: key
+        - required: false
           in: query
-          description: Filter by key.
-          required: false
+          description: ''
+          name: key
           schema:
             type: string
-        - name: section
+        - required: false
           in: query
-          description: Filter by parent section ID.
-          required: false
+          description: ''
+          name: subsection
           schema:
-            type: integer
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: parent
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/subsection'
-        '403':
-          description: Forbidden
-  '/questions/subsections/{id}':
-    get:
+          description: OK
+      operationId: v1_questions_questions_list
       tags:
-        - questions
-      summary: Retrieve subsection
+        - v1
+  '/api/v1/questions/questions/{id}/':
+    get:
       parameters:
-        - name: id
+        - required: true
           in: path
-          description: The ID of the subsection.
-          required: true
+          description: A unique integer value identifying this Question.
+          name: id
           schema:
             type: integer
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: path
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: subsection
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: parent
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/subsection'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-  /questions/questionset/:
-    get:
+          description: OK
+      operationId: v1_questions_questions_read
       tags:
-        - questions
-      summary: List questionsets
+        - v1
+  /api/v1/questions/questionsets/:
+    get:
       parameters:
-        - name: uri
+        - required: false
           in: query
-          description: Filter by URI.
-          required: false
+          description: ''
+          name: uri
           schema:
             type: string
-        - name: path
+        - required: false
           in: query
-          description: Filter by path.
-          required: false
+          description: ''
+          name: path
           schema:
             type: string
-        - name: key
+        - required: false
           in: query
-          description: Filter by key.
-          required: false
+          description: ''
+          name: key
           schema:
             type: string
-        - name: subsection
+        - required: false
           in: query
-          description: Filter by parent subsection ID.
-          required: false
+          description: ''
+          name: subsection
           schema:
-            type: integer
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/questionset'
-        '403':
-          description: Forbidden
-  '/questions/questionsets/{id}':
-    get:
+          description: OK
+      operationId: v1_questions_questionsets_list
       tags:
-        - questions
-      summary: Retrieve questionset
+        - v1
+  '/api/v1/questions/questionsets/{id}/':
+    get:
       parameters:
-        - name: id
+        - required: true
           in: path
-          description: The ID of the questionset.
-          required: true
+          description: A unique integer value identifying this Question entity.
+          name: id
           schema:
             type: integer
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: path
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: subsection
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/questionset'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
-  /questions/questions/:
-    get:
+          description: OK
+      operationId: v1_questions_questionsets_read
       tags:
-        - questions
-      summary: List questions
+        - v1
+  /api/v1/questions/sections/:
+    get:
       parameters:
-        - name: uri
+        - required: false
           in: query
-          description: Filter by URI.
-          required: false
+          description: ''
+          name: uri
           schema:
             type: string
-        - name: path
+        - required: false
           in: query
-          description: Filter by path.
-          required: false
+          description: ''
+          name: path
           schema:
             type: string
-        - name: key
+        - required: false
           in: query
-          description: Filter by key.
-          required: false
+          description: ''
+          name: key
           schema:
             type: string
-        - name: subsection
+        - required: false
           in: query
-          description: Filter by parent section ID.
-          required: false
+          description: ''
+          name: catalog
           schema:
-            type: integer
-        - name: parent
-          in: query
-          description: Filter by parent question set ID.
-          required: false
-          schema:
-            type: integer
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/question'
-        '403':
-          description: Forbidden
-  '/questions/questions/{id}':
-    get:
+          description: OK
+      operationId: v1_questions_sections_list
       tags:
-        - questions
-      summary: Retrieve question
+        - v1
+  '/api/v1/questions/sections/{id}/':
+    get:
       parameters:
-        - name: id
+        - required: true
           in: path
-          description: The ID of the question.
-          required: true
+          description: A unique integer value identifying this Section.
+          name: id
           schema:
             type: integer
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: path
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: catalog
+          schema:
+            type: string
       responses:
         '200':
-          description: Success
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/question'
-        '403':
-          description: Forbidden
-        '404':
-          description: Not found
+          description: OK
+      operationId: v1_questions_sections_read
+      tags:
+        - v1
+  /api/v1/questions/subsections/:
+    get:
+      parameters:
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: path
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: section
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      operationId: v1_questions_subsections_list
+      tags:
+        - v1
+  '/api/v1/questions/subsections/{id}/':
+    get:
+      parameters:
+        - required: true
+          in: path
+          description: A unique integer value identifying this Subsection.
+          name: id
+          schema:
+            type: integer
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: path
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: section
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      operationId: v1_questions_subsections_read
+      tags:
+        - v1
+  /api/v1/tasks/tasks/:
+    get:
+      parameters:
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      operationId: v1_tasks_tasks_list
+      tags:
+        - v1
+  '/api/v1/tasks/tasks/{id}/':
+    get:
+      parameters:
+        - required: true
+          in: path
+          description: A unique integer value identifying this Task.
+          name: id
+          schema:
+            type: integer
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      operationId: v1_tasks_tasks_read
+      tags:
+        - v1
+  /api/v1/views/views/:
+    get:
+      parameters:
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      operationId: v1_views_views_list
+      tags:
+        - v1
+  '/api/v1/views/views/{id}/':
+    get:
+      parameters:
+        - required: true
+          in: path
+          description: A unique integer value identifying this View.
+          name: id
+          schema:
+            type: integer
+        - required: false
+          in: query
+          description: ''
+          name: uri
+          schema:
+            type: string
+        - required: false
+          in: query
+          description: ''
+          name: key
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+      operationId: v1_views_views_read
+      tags:
+        - v1
 components:
-  schemas:
-    user:
-      type: object
-      properties:
-        id:
-          description: The ID of the user.
-          type: integer
-        username:
-          description: The username of the user.
-          type: string
-        first_name:
-          description: The first name of the user.
-          type: string
-        last_name:
-          description: The last name of the user.
-          type: string
-        email:
-          description: The email of the user.
-          type: string
-    condition:
-      type: object
-      properties:
-        id:
-          description: The ID of this condition.
-          type: integer
-        uri:
-          description: The Uniform Resource Identifier of this condition.
-          type: string
-          format: uri
-        uri_prefix:
-          description: The prefix for the URI of this condition.
-          type: string
-        key:
-          description: The internal identifier of this condition.
-          type: string
-        comment:
-          description: Additional internal information about this condition.
-          type: string
-        source:
-          description: The Attribute this condition is evaluating.
-          type: string
-          format: url
-        relation:
-          description: The Relation this condition is using.
-          type: string
-        target_text:
-          description: >-
-            If using a regular attibute, the text value this condition is
-            checking against.
-          type: string
-        target_option:
-          description: >-
-            If using an options attribute, the option this condition is checking
-            against.
-          type: string
-          format: url
-    entity:
-      type: object
-      properties:
-        id:
-          description: The ID of this entity.
-          type: integer
-        uri:
-          description: The Uniform Resource Identifier of this entity.
-          type: string
-          format: uri
-        uri_prefix:
-          description: The prefix for the URI of this entity.
-          type: string
-        path:
-          description: The path part of the URI of this entity.
-          type: string
-        key:
-          description: The internal identifier of this entity.
-          type: string
-        comment:
-          description: Additional internal information about this entity.
-          type: string
-        is_collection:
-          description: Designates whether this entity is a collection.
-          type: boolean
-        conditions:
-          description: List of conditions evaluated for this entity.
-          type: array
-          items:
-            type: string
-            format: url
-        parent:
-          description: Parent entity in the domain model.
-          type: string
-          format: url
-        children:
-          description: List of child entities/attributes in the domain model.
-          type: array
-          items:
-            type: string
-            format: url
-    attribute:
-      type: object
-      properties:
-        id:
-          description: The ID of this attribute.
-          type: integer
-        uri:
-          description: The Uniform Resource Identifier of this attribute.
-          type: string
-          format: uri
-        uri_prefix:
-          description: The prefix for the URI of this attribute.
-          type: string
-        path:
-          description: The path part of the URI of this attribute.
-          type: string
-        key:
-          description: The internal identifier of this attribute.
-          type: string
-        comment:
-          description: Additional internal information about this attribute.
-          type: string
-        value_type:
-          description: Type of value for this attribute.
-          type: string
-        unit:
-          description: Unit for this attribute.
-          type: string
-        is_collection:
-          description: Designates whether this attribute is a collection.
-          type: boolean
-        range:
-          $ref: '#/components/schemas/range'
-        optionsets:
-          description: List of optionsets used for this attribute.
-          type: array
-          items:
-            type: string
-            format: url
-        conditions:
-          description: List of conditions evaluated for this attribute.
-          type: array
-          items:
-            type: string
-            format: url
-        parent:
-          description: Parent entity in the domain model.
-          type: string
-          format: url
-    range:
-      type: object
-      properties:
-        id:
-          description: The ID of this attribute.
-          type: integer
-        minimum:
-          description: Minimal value for this attribute.
-          type: number
-          format: float
-        maximum:
-          description: Maximum value for this attribute.
-          type: number
-          format: float
-        step:
-          description: Step in which this attribute can be incremented/decremented.
-          type: number
-          format: float
-    optionset:
-      type: object
-      properties:
-        id:
-          description: The ID ot this option set.
-          type: integer
-        uri:
-          description: The Uniform Resource Identifier of this option set.
-          type: string
-          format: uri
-        uri_prefix:
-          description: The prefix for the URI of this option set.
-          type: string
-        key:
-          description: The internal identifier of this option set.
-          type: string
-        comment:
-          description: Additional internal information about this option set.
-          type: string
-        order:
-          description: The position of this option set in lists.
-          type: integer
-        conditions:
-          type: array
-          description: List of conditions evaluated for this option set.
-          items:
-            type: string
-            format: url
-        options:
-          type: array
-          description: List of options in this optionset.
-          items:
-            type: string
-            format: url
-    option:
-      type: object
-      properties:
-        id:
-          description: The ID ot this option.
-          type: integer
-        uri:
-          description: The Uniform Resource Identifier of this option.
-          type: string
-          format: uri
-        uri_prefix:
-          description: The prefix for the URI of this option.
-          type: string
-        key:
-          description: The internal identifier of this option.
-          type: string
-        comment:
-          description: Additional internal information about this option.
-          type: string
-        order:
-          description: The position of this option in lists.
-          type: integer
-        text_en:
-          description: The English text displayed for this option.
-          type: string
-        text_de:
-          description: The German text displayed for this option.
-          type: string
-        additional_input:
-          description: Designates whether an additional input is possible for this option.
-          type: boolean
-        optionset:
-          description: The option set this option belongs to.
-          type: string
-          format: url
-    project:
-      type: object
-      properties:
-        id:
-          description: The project ID.
-          type: integer
-        title:
-          description: The project's title
-          type: string
-        description:
-          description: The project's description
-          type: string
-        catalog:
-          description: URL to the question catalog of the project
-          type: string
-        snapshots:
-          description: Snapshot of a project
-          type: array
-          items:
-            type: string
-            format: url
-        members:
-          $ref: '#/components/schemas/members'
-    members:
-      type: object
-      properties:
-        author:
-            description: Authors of a project
-            type: array
-            items:
-              type: string
-              format: url
-        manager:
-            description: Managers of a project
-            type: array
-            items:
-              type: string
-              format: url
-        guest:
-            description: Guest users of a project
-            type: array
-            items:
-              type: string
-              format: url
-        owner:
-            description: Owners of a project
-            type: array
-            items:
-              type: string
-              format: url
-    catalog:
-      type: object
-      properties:
-        id:
-          description: The ID ot this catalog.
-          type: integer
-        uri:
-          description: The Uniform Resource Identifier of this catalog.
-          type: string
-          format: uri
-        uri_prefix:
-          description: The prefix for the URI of this catalog.
-          type: string
-        key:
-          description: The internal identifier of this catalog.
-          type: string
-        comment:
-          description: Additional internal information about this catalog.
-          type: string
-        order:
-          description: The position of this catalog in lists.
-          type: integer
-        title_en:
-          description: The English title displayed for this catalog.
-          type: string
-        title_de:
-          description: The German title displayed for this catalog.
-          type: string
-        sections:
-          type: array
-          description: List of sections in this catalog.
-          items:
-            type: string
-            format: url
-    section:
-      type: object
-      properties:
-        id:
-          description: The ID ot this section.
-          type: integer
-        uri:
-          description: The Uniform Resource Identifier of this section.
-          type: string
-          format: uri
-        uri_prefix:
-          description: The prefix for the URI of this section.
-          type: string
-        key:
-          description: The internal identifier of this section.
-          type: string
-        comment:
-          description: Additional internal information about this section.
-          type: string
-        catalog:
-          description: The catalog this section belongs to.
-          type: string
-          format: url
-        order:
-          description: The position of this section in lists.
-          type: integer
-        title_en:
-          description: The English title displayed for this section.
-          type: string
-        title_de:
-          description: The German title displayed for this section.
-          type: string
-        sections:
-          type: array
-          description: List of subsections in this section.
-          items:
-            type: string
-            format: url
-    subsection:
-      type: object
-      properties:
-        id:
-          description: The ID ot this subsection.
-          type: integer
-        uri:
-          description: The Uniform Resource Identifier of this subsection.
-          type: string
-          format: uri
-        uri_prefix:
-          description: The prefix for the URI of this subsection.
-          type: string
-        key:
-          description: The internal identifier of this subsection.
-          type: string
-        comment:
-          description: Additional internal information about this subsection.
-          type: string
-        catalog:
-          description: The section this subsection belongs to.
-          type: string
-          format: url
-        order:
-          description: The position of this subsection in lists.
-          type: integer
-        title_en:
-          description: The English title displayed for this subsection.
-          type: string
-        title_de:
-          description: The German title displayed for this subsection.
-          type: string
-        question_entities:
-          type: array
-          description: List of question entities in this subsection.
-          items:
-            type: string
-            format: url
-    questionset:
-      type: object
-      properties:
-        id:
-          description: The ID ot this question set.
-          type: integer
-        uri:
-          description: The Uniform Resource Identifier of this question set.
-          type: string
-          format: uri
-        uri_prefix:
-          description: The prefix for the URI of this question set.
-          type: string
-        key:
-          description: The internal identifier of this question set.
-          type: string
-        comment:
-          description: Additional internal information about this question set.
-          type: string
-        subsection:
-          description: The question set this question set belongs to.
-          type: string
-          format: url
-        attribute_entity:
-          description: The entity this question set belongs to.
-        order:
-          description: The position of this question set in lists.
-          type: integer
-        help_en:
-          description: The English title displayed for this question set.
-          type: string
-        help_de:
-          description: The German title displayed for this question set.
-          type: string
-        questions:
-          type: array
-          description: List of questions in this question set.
-          items:
-            type: string
-            format: url
-    question:
-      type: object
-      properties:
-        id:
-          description: The ID ot this question.
-          type: integer
-        uri:
-          description: The Uniform Resource Identifier of this question.
-          type: string
-          format: uri
-        uri_prefix:
-          description: The prefix for the URI of this question.
-          type: string
-        key:
-          description: The internal identifier of this question.
-          type: string
-        comment:
-          description: Additional internal information about this question.
-          type: string
-        subsection:
-          description: The subsection this question set belongs to.
-          type: string
-          format: url
-        attribute_entity:
-          description: The attribute this question belongs to.
-          type: string
-          format: url
-        order:
-          description: The position of this question in lists.
-          type: integer
-        help_en:
-          description: The English help text displayed for this question.
-          type: string
-        help_de:
-          description: The German help text displayed for this question.
-          type: string
-        text_en:
-          description: The English text displayed for this question.
-          type: string
-        text_de:
-          description: The German text displayed for this question.
-          type: string
-        widget_type:
-          description: Type of widget for this question.
-          type: string
+  requestBodies:
+    internal_domain_attributes_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - value_type
+            type: object
+            properties:
+              parent:
+                type: integer
+                description: Parent entity in the domain model.
+              is_collection:
+                type: boolean
+                description: Designates whether this attribute/entity is a collection.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this attribute/entity.
+              conditions:
+                type: array
+                items:
+                  type: string
+                description: List of conditions evaluated for this attribute/entity.
+              optionsets:
+                type: array
+                items:
+                  type: string
+                description: Option sets for this attribute.
+              unit:
+                type: string
+                description: Unit for this attribute.
+              key:
+                type: string
+                description: The internal identifier of this attribute/entity.
+              comment:
+                type: string
+                description: Additional information about this attribute/entity.
+              value_type:
+                type: string
+                description: Type of value for this attribute.
+    internal_tasks_tasks_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - title_en
+              - title_de
+              - text_en
+              - text_de
+            type: object
+            properties:
+              title_de:
+                type: string
+                description: The German title for this task.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this task.
+              text_en:
+                type: string
+                description: The English text for this task.
+              conditions:
+                type: array
+                items:
+                  type: string
+                description: The list of conditions evaluated for this task.
+              text_de:
+                type: string
+                description: The German text for this task.
+              key:
+                type: string
+                description: The internal identifier of this task.
+              comment:
+                type: string
+                description: Additional internal information about this task.
+              title_en:
+                type: string
+                description: The English title for this task.
+    internal_questions_questionsets_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - subsection
+            type: object
+            properties:
+              order:
+                type: integer
+                description: The position of this question/questionset in lists.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this question/questionset.
+              attribute_entity:
+                type: integer
+                description: The attribute/entity this question/questionset belongs to.
+              subsection:
+                type: integer
+                description: The subsection this question/questionset belongs to.
+              key:
+                type: string
+                description: The internal identifier of this question/questionset.
+              help_de:
+                type: string
+                description: The German help text for this question/questionset.
+              comment:
+                type: string
+                description: >-
+                  Additional internal information about this
+                  question/questionset.
+              help_en:
+                type: string
+                description: The English help text for this question/questionset.
+    internal_options_options_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - text_en
+              - text_de
+            type: object
+            properties:
+              optionset:
+                type: integer
+                description: The option set this option belongs to.
+              text_en:
+                type: string
+                description: The English text displayed for this option.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this option.
+              order:
+                type: integer
+                description: Position in lists.
+              text_de:
+                type: string
+                description: The German text displayed for this option.
+              key:
+                type: string
+                description: The internal identifier of this option.
+              comment:
+                type: string
+                description: Additional internal information about this option.
+              additional_input:
+                type: boolean
+                description: >-
+                  Designates whether an additional input is possible for this
+                  option.
+    internal_conditions_conditions_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - relation
+            type: object
+            properties:
+              target_text:
+                type: string
+                description: >-
+                  If using a regular attibute, the text value this condition is
+                  checking against.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this condition.
+              source:
+                type: string
+                description: The Attribute this condition is evaluating.
+              relation:
+                type: string
+                description: The Relation this condition is using.
+              key:
+                type: string
+                description: The internal identifier of this condition.
+              target_option:
+                type: integer
+                description: >-
+                  If using an options attribute, the option this condition is
+                  checking against.
+              comment:
+                type: string
+                description: Additional internal information about this condition.
+    internal_questions_sections_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - catalog
+              - title_en
+              - title_de
+            type: object
+            properties:
+              order:
+                type: integer
+                description: Position in lists.
+              title_de:
+                type: string
+                description: The German title for this section.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this section.
+              key:
+                type: string
+                description: The internal identifier of this section.
+              comment:
+                type: string
+                description: Additional internal information about this section.
+              catalog:
+                type: integer
+                description: The catalog this section belongs to.
+              title_en:
+                type: string
+                description: The English title for this section.
+    internal_domain_entities_createData:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              parent:
+                type: integer
+                description: Parent entity in the domain model.
+              is_collection:
+                type: boolean
+                description: Designates whether this attribute/entity is a collection.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this attribute/entity.
+              conditions:
+                type: array
+                items:
+                  type: string
+                description: List of conditions evaluated for this attribute/entity.
+              key:
+                type: string
+                description: The internal identifier of this attribute/entity.
+              comment:
+                type: string
+                description: Additional information about this attribute/entity.
+    internal_views_views_createData:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title_de:
+                type: string
+                description: The German title for this view.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this view.
+              template:
+                type: string
+                description: >-
+                  The template for this view, written in Django template
+                  language.
+              help_de:
+                type: string
+                description: The German help text for this view.
+              key:
+                type: string
+                description: The internal identifier of this view.
+              comment:
+                type: string
+                description: Additional internal information about this view.
+              title_en:
+                type: string
+                description: The English title for this view.
+              help_en:
+                type: string
+                description: The English help text for this view.
+    internal_domain_ranges_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - attribute
+              - minimum
+              - maximum
+              - step
+            type: object
+            properties:
+              attribute:
+                type: string
+                description: Attribute this verbose name belongs to.
+              minimum:
+                type: number
+                description: Minimal value for this attribute.
+              step:
+                type: number
+                description: Step in which this attribute can be incremented/decremented.
+              maximum:
+                type: number
+                description: Maximum value for this attribute.
+    internal_domain_verbosenames_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - attribute_entity
+              - name_en
+              - name_de
+              - name_plural_en
+              - name_plural_de
+            type: object
+            properties:
+              name_de:
+                type: string
+                description: >-
+                  German name displayed for this attribute/entity (e.g.
+                  Projekt).
+              name_en:
+                type: string
+                description: >-
+                  English name displayed for this attribute/entity (e.g.
+                  project).
+              name_plural_en:
+                type: string
+                description: >-
+                  English plural name displayed for this attribute/entity (e.g.
+                  projects).
+              name_plural_de:
+                type: string
+                description: >-
+                  German plural name displayed for this attribute/entity (e.g.
+                  Projekte).
+              attribute_entity:
+                type: integer
+                description: Attribute/entity this verbose name belongs to.
+    internal_options_optionsets_createData:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              comment:
+                type: string
+                description: Additional internal information about this option set.
+              key:
+                type: string
+                description: The internal identifier of this option set.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this option set.
+              conditions:
+                type: array
+                items:
+                  type: string
+                description: The list of conditions evaluated for this option set.
+              order:
+                type: integer
+                description: The position of this option set in lists.
+    internal_projects_values_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - project
+            type: object
+            properties:
+              attribute:
+                type: string
+                description: The attribute this value belongs to.
+              set_index:
+                type: integer
+                description: >-
+                  The position of this value in an entity collection (i.e. in
+                  the question set)
+              project:
+                type: integer
+                description: The project this value belongs to.
+              snapshot:
+                type: integer
+                description: The snapshot this value belongs to.
+              text:
+                type: string
+                description: The string stored for this value.
+              collection_index:
+                type: integer
+                description: The position of this value in an attribute collection.
+              option:
+                type: integer
+                description: The option stored for this value.
+    internal_questions_attributes_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - path
+            type: object
+            properties:
+              path:
+                type: string
+                description: >-
+                  The path part of the URI of this attribute/entity
+                  (auto-generated).
+    internal_questions_attributes_partial_updateData:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              path:
+                type: string
+                description: >-
+                  The path part of the URI of this attribute/entity
+                  (auto-generated).
+    internal_questions_catalogs_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - title_en
+              - title_de
+            type: object
+            properties:
+              order:
+                type: integer
+                description: The position of this catalog in lists.
+              title_de:
+                type: string
+                description: The German title for this catalog.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this catalog.
+              key:
+                type: string
+                description: The internal identifier of this catalog.
+              comment:
+                type: string
+                description: Additional internal information about this catalog.
+              title_en:
+                type: string
+                description: The English title for this catalog.
+    internal_questions_questions_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - subsection
+              - text_en
+              - text_de
+              - widget_type
+            type: object
+            properties:
+              order:
+                type: integer
+                description: The position of this question/questionset in lists.
+              text_en:
+                type: string
+                description: The English text for this question.
+              attribute_entity:
+                type: integer
+                description: The attribute/entity this question/questionset belongs to.
+              subsection:
+                type: integer
+                description: The subsection this question/questionset belongs to.
+              parent:
+                type: integer
+                description: The question set this question belongs to.
+              help_de:
+                type: string
+                description: The German help text for this question/questionset.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this question/questionset.
+              text_de:
+                type: string
+                description: The German text for this question.
+              key:
+                type: string
+                description: The internal identifier of this question/questionset.
+              comment:
+                type: string
+                description: >-
+                  Additional internal information about this
+                  question/questionset.
+              widget_type:
+                type: string
+                description: Type of widget for this question.
+              help_en:
+                type: string
+                description: The English help text for this question/questionset.
+    internal_questions_subsections_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - section
+              - title_en
+              - title_de
+            type: object
+            properties:
+              order:
+                type: integer
+                description: Position in lists.
+              title_de:
+                type: string
+                description: The German title for this subsection.
+              uri_prefix:
+                type: string
+                description: The prefix for the URI of this subsection.
+              section:
+                type: integer
+                description: The section this subsection belongs to.
+              key:
+                type: string
+                description: The internal identifier of this subsection.
+              comment:
+                type: string
+                description: Additional internal information about this subsection.
+              title_en:
+                type: string
+                description: The English title for this subsection.
+    internal_tasks_timeframes_createData:
+      content:
+        application/json:
+          schema:
+            required:
+              - task
+            type: object
+            properties:
+              task:
+                type: integer
+                description: The task this time frame belongs to.
+              start_attribute:
+                type: string
+                description: The Attribute that is setting the start date for this task.
+              end_attribute:
+                type: string
+                description: >-
+                  The Attribute that is setting the end date for this task
+                  (optional, if no end date attribute is given, the start date
+                  attribute sets also the end date).
+              days_before:
+                type: integer
+                description: Additional days before the start date.
+              days_after:
+                type: integer
+                description: Additional days after the end date.
+  securitySchemes:
+    basic:
+      type: http
+      scheme: basic
