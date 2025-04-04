@@ -1,3 +1,6 @@
+**This repository is outdated and archived. A current OpenAPI Specification can be obtained from a running RDMO instance, if corresponding routes are enabled.**
+
+
 OpenAPI Specification of the RDMO API 
 =====================================
 
